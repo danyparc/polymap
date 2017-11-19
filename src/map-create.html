@@ -59,8 +59,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-align: center;
       }
     </style>
-    <google-map-search id="search" map="[[map]]" query="Pizza" results="{{results}}">
-    </google-map-search>
+
+    <!-- <google-map-search id="search" map="[[map]]" query="Pizza" results="{{results}}">
+    </google-map-search> -->
     <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
       <google-map-marker icon="{{imgob}}" id="marker" drag-events="true" latitude="19.432" longitude="-99.13" draggable="true">
         <h2>Nombre lugar</h2>
@@ -99,7 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var s = this.$.search;
         var dial = this.$.myDialog;        
 
-        s.search();
+        // s.search();
 
         console.log(gmap);        
         gmap.mouseEvents=true;
