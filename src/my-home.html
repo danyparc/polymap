@@ -42,6 +42,7 @@
         text-align: center; 
       }
       .agregar{
+        cursor: pointer;
         background: #009dbe;
         color: white;
         border: transparent;
@@ -49,6 +50,7 @@
         margin-bottom: 2%;
       }
       .agregar:hover{
+        cursor: pointer;
         background: white;
         color: #009dbe;
         -webkit-transform: scale(1.1);
@@ -82,7 +84,7 @@
             <div class="card" style="width: 99%;margin-top: 1% !important;">
               <h3>Sube un nuevo lugar</h3>
               <p>Elige una ubicación dentro del mapa y detalla que tan accesible es.</p>
-              <button class="agregar"  href="[[rootPath]]place">Agregar</button>
+              <button class="oval-btn"  href="[[rootPath]]place">Agregar</button>
             </div>
           </template>
           <template is="dom-if" if="{{wide}}">
@@ -102,7 +104,7 @@
             <div class="card" style="width: 100%;margin-top: 1% !important;">
               <h2>Sube un nuevo lugar</h2>
               <p>Elige una ubicación dentro del mapa y detalla que tan accesible es.</p>
-              <button class="agregar"  href="[[rootPath]]place">Agregar</button>
+              <a href="/place"><button class="oval-btn">Agregar</button></a>
             </div>
           </template>
         </div>
