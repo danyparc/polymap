@@ -1,0 +1,126 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/google-map/google-map.html">
+<link rel="import" href="../bower_components/google-map/google-map-search.html">
+<link rel="import" href="../bower_components/google-map/google-map-marker.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+
+
+<link rel="import" href="shared-styles.html">
+
+
+<dom-module id="map-create">
+  <template  is="dom-bind">
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+      google-map {
+                width: 100%;
+                height: 280px;
+                display: block;
+            }
+      google-map-search {
+          width: 250px;
+          height: 50px;
+      }
+      paper-dialog.colored {
+        border: 2px solid;
+        border-color: #4caf50;
+        background-color: #f1f8e9;
+        color: #4caf50;
+      }
+      paper-dialog.size-position {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        width: 300px;
+        height: 300px;
+        overflow: auto;
+      }
+    </style>
+    <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
+      <google-map-marker icon="{{imgob}}" id="marker" drag-events="true" latitude="19.432" longitude="-99.13" draggable="true">
+        <h2>Nombre lugar</h2>
+        <span>dirección del lugarcillo 123</span>
+      </google-map-marker>
+      <template is="dom-repeat" items="{{results}}" as="marker">
+        <google-map-marker icon="../images/sem.png" latitude="{{marker.latitude}}" longitude="{{marker.longitude}}">
+          <h2>{{marker.name}}</h2>
+          <span>{{marker.formatted_address}}</span>
+        </google-map-marker>
+      </template>
+    </google-map>
+
+    <!-- <paper-dialog-impl id="myDialog">
+      <h2>Header</h2> -->
+      <paper-dialog id="myDialog">
+        Lorem ipsum...
+      </paper-dialog>
+      <div class="buttons">
+        <paper-button onclick="myDialog.open()">OK</paper-button>
+      </div>
+    <!-- </paper-dialog-impl> -->
+  </template>
+  <script>
+    class MapCreate extends Polymer.Element {
+      static get is() { return 'map-create'; }
+
+      static get properties() {
+        return {
+          thingCount: {
+            value: 0,
+            observer: '_thingCountChanged'
+          },
+          imgob: {
+            value:{
+              url: "../images/baja.png"
+            }      
+          }
+        }
+      }
+      
+      ready(){       
+        super.ready();
+        var marker = this.$.marker;
+        var gmap = this.$.map;
+        var s = this.$.search;
+        var scrollable = Polymer.dom(myDialog).querySelector('paper-dialog');
+        scrollable.dialogElement = myDialog;
+        s.search()
+        // gmap.addEventListener('api-load', function (e) {
+        //   document.querySelector('google-map-directions').map = this.map;
+        // });
+        console.log(gmap);        
+        gmap.mouseEvents=true;
+        this.addEventListener('google-map-click', (e) => {
+          var latLng = e.detail.latLng;
+          console.log('CLICK', latLng.lat(), latLng.lng());
+          scrollable.open();
+        });
+        this.addEventListener('google-map-marker-dragend', function (e) {
+          var latLng = e.detail.latLng;
+          console.log('pin dropped', latLng.lat(), latLng.lng());
+          // point.latitude = latLng.lat();
+          // point.longitude = latLng.lng();
+          // poly._buildPathFromPoints();
+        });
+        
+      }
+    }
+    window.customElements.define(MapCreate.is, MapCreate);
+  </script>
+</dom-module>
