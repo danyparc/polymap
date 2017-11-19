@@ -67,7 +67,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
       <template is="dom-repeat" items="{{locations}}" as="marker">
         <google-map-marker icon="{{marker.icon}}" latitude="{{marker.latitud}}" longitude="{{marker.longitud}}">
-          <p>Score: {{marker.accesibilidad}}</p>
+          <p>{{marker.accesibilidad}} accesibilidad</p>
         </google-map-marker>
       </template>
     </google-map>
@@ -105,7 +105,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       asignColors(){
-        for (var i in this.locations) {
+        var locs=[];
+        for (let i in this.locations) {
           switch (this.locations[i].accesibilidad) {
             case "alta":
               this.locations[i].icon = {
@@ -125,7 +126,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             default:
               break;
           }
+          locs.push(this.locations[i]);
         }
+        this.locations=locs;
       }
 
 
