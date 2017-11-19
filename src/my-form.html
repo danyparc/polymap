@@ -78,12 +78,14 @@
             value: false  // initial value required for binding
           },
           ponderacion:{
-            type: String
+            type: String,
+            notify: true,
           }
         }
       }
 
       accesible() {
+        var form = this.$.form5;
         var rampas = this.$.rampas;
         var ascensor = this.$.ascensor;
         var bano = this.$.bano;
@@ -117,7 +119,7 @@
         }else{
           console.log("No se ha clasificado");
         }
-        this.dispatchEvent(new CustomEvent('submit', { detail: { submit: true, ponderacion: this.ponderacion } }));
+        this.form.reset()
       }
     }
     window.customElements.define(MyForm.is, MyForm);

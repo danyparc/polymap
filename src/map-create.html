@@ -65,7 +65,7 @@
     <!-- <paper-dialog-impl id="myDialog">
       <h2>Header</h2> -->
       <paper-dialog id="myDialog">
-        <my-form></my-form>
+        <my-form id="myForm" ponderacion="{{ponderation}}"></my-form>
       </paper-dialog>
     <!-- </paper-dialog-impl> -->
     
@@ -85,13 +85,17 @@
               url: "../images/baja.png"
             }      
           },
+          ponderation:{
+            type: String,
+            value: "",
+            observer: '_submit'
+          }
         }
       }
 
-      buttonClick() {
+      _submit() {
         this.dispatchEvent(new CustomEvent('submit', { detail: { submit: true } }));
       }
-      
       
       ready(){       
         super.ready();
@@ -104,28 +108,21 @@
 
         console.log(gmap);        
         gmap.mouseEvents=true;
-        
-        this.addEventListener('submit', (e) => {
-          var newloc = {
-            latitud: marker.latitude,
-            longitud: marker.longitude,
-            accesibilidad: e.detail.ponderacion,
-          }
-          firebase.database().ref('locations').push().set(newloc);
-        });
-
         this.addEventListener('google-map-click', (e) => {
           var latLng = e.detail.latLng;
           console.log('CLICK', latLng.lat(), latLng.lng());
+          marker.latitude = latLng.lat();
+          marker.longitude = latLng.lng();
           dial.open();
         });
+
         this.addEventListener('submit', (e) => {
+          console.log("submiteado", e, "ponde", this.ponderation)
           var newloc = {
             latitud: marker.latitude,
             longitud: marker.longitude,
-            accesibilidad: "media",
+            accesibilidad: this.ponderation,
           }
-
           firebase.database().ref('locations').push().set(newloc);
         });
 
