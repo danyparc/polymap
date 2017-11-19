@@ -102,6 +102,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // console.log("LOCS ",this.locations);
         });
         
+        firebase.database().ref('/locations').on('child_added', (snapshot) => {
+            this.locations.push(snapshot.val())
+            this.asignColors();
+            // console.log("LOCS ",this.locations);
+          });
       }
 
       asignColors(){
