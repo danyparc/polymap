@@ -1,0 +1,58 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/google-map/google-map.html">
+<link rel="import" href="../bower_components/k-speech/k-speech.html">
+
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-home">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+      .fondo{
+        width: 100%;
+        height: 650px;
+      }
+      .texto{
+        position: absolute;
+        width: 90%;
+      }
+      .titulo{
+        font-size: 60px;
+        color: white;
+        text-align: center;
+      }
+      .cuerpo{
+        font-size:40px;
+        color: white;
+        text-align: justify;
+      }
+    </style>
+    <div class="card">
+      <div class="texto">
+        <p class="titulo">Polymap</p>
+        <k-speech auto-play 
+    text    = "Polymap, Valora la accesibilidad de los lugares. Puedes encontrar y compartir bancos, museos, restaurantes, hoteles, etc. que sean accesibles para personas con capacidades diferentes."
+    volume  = "1"
+    rate    = "1"
+    pitch   = "1"></k-speech>
+        <p class="cuerpo">Valora la accesibilidad de los lugares. Puedes encontrar y compartir bancos, museos, restaurantes, hoteles, etc. que sean accesibles para personas con capacidades diferentes.</p>
+
+      </div>
+            <img src="../images/fondo/wall1.png" class="fondo">
+
+    </div>
+
+  </template>
+
+  <script>
+    class MyHome extends Polymer.Element {
+      static get is() { return 'my-home'; }
+    }
+
+    window.customElements.define(MyHome.is, MyHome);
+  </script>
+</dom-module>
