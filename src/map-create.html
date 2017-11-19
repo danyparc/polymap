@@ -20,11 +20,13 @@
         padding: 10px;
       }
       google-map {
-       width: 100%;
-       height: 550px;
-       color: #757575 ;
-       border-radius: 5px;
-       box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        height: 550px;
+        padding-left: 0px;
+        padding-right: 0px;
+        color: #757575 ;
+        border-radius: 5px;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
      }
       google-map-search {
           width: 250px;
@@ -47,7 +49,13 @@
     </style>
 
     <!-- TODO: search query (paper-search-panel) -->
-    <!-- <google-map-search id="search" map="[[map]]" query="Pizza" results="{{results}}">
+    <!-- <paper-search-panel search="{{search}}" count="{{count}}" items="[[items]]" has-more="[[hasMore]]" loading="[[loading]]"
+      filters="[[filters]]" selected-filters="{{selectedFilters}}" on-change-request-params="loadData">
+      <div>
+        Show your [[count]] results for "[[search]]"
+      </div>
+    </paper-search-panel>
+    <google-map-search id="search_box" map="[[map]]" query="[[query]]" results="{{results}}">
     </google-map-search> -->
     <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
       <google-map-marker icon="{{imgob}}" id="marker" drag-events="true" latitude="19.432" longitude="-99.13" draggable="true">
@@ -124,6 +132,7 @@
             accesibilidad: this.ponderation,
           }
           firebase.database().ref('locations').push().set(newloc);
+          dial.close();
         });
 
         this.addEventListener('google-map-marker-dragend', function (e) {

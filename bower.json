@@ -22,7 +22,8 @@
     "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
     "k-speech": "^1.0.2",
-    "iron-form": "PolymerElements/iron-form#^2.0.1"
+    "iron-form": "PolymerElements/iron-form#^2.0.1",
+    "paper-search": "Collaborne/paper-search#^2.0.9"
   },
   "resolutions": {
     "polymer": "^2.0.0"
