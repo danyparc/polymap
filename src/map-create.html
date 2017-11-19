@@ -29,10 +29,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
       google-map {
-                width: 100%;
-                height: 280px;
-                display: block;
-            }
+       width: 100%;
+       height: 550px;
+       color: #757575 ;
+       border-radius: 5px;
+       box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+     }
       google-map-search {
           width: 250px;
           height: 50px;
@@ -52,6 +54,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         overflow: auto;
       }
     </style>
+    <google-map-search id="search" map="[[map]]" query="Pizza" results="{{results}}">
+    </google-map-search>
     <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
       <google-map-marker icon="{{imgob}}" id="marker" drag-events="true" latitude="19.432" longitude="-99.13" draggable="true">
         <h2>Nombre lugar</h2>
@@ -98,9 +102,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var marker = this.$.marker;
         var gmap = this.$.map;
         var s = this.$.search;
-        var scrollable = Polymer.dom(myDialog).querySelector('paper-dialog');
-        scrollable.dialogElement = myDialog;
-        s.search()
+        var dial = this.$.myDialog;        
+        // var scrollable = Polymer.dom(myDialog).querySelector('paper-dialog');
+        console.log(dial);
+        // s.search();
         // gmap.addEventListener('api-load', function (e) {
         //   document.querySelector('google-map-directions').map = this.map;
         // });
@@ -109,7 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.addEventListener('google-map-click', (e) => {
           var latLng = e.detail.latLng;
           console.log('CLICK', latLng.lat(), latLng.lng());
-          scrollable.open();
+          dial.open();
         });
         this.addEventListener('google-map-marker-dragend', function (e) {
           var latLng = e.detail.latLng;
