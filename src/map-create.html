@@ -78,6 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     <paper-dialog id="myDialog">
         <h4>¿Que tan accesible es este lugar?</h4>
+        <paper-button on-click="buttonClick">Subir</paper-button>
     </paper-dialog>
   </template>
   <script>
@@ -90,9 +91,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             value:{
               url: "../images/baja.png"
             }      
-          }
+          },
         }
       }
+
+      buttonClick() {
+        this.dispatchEvent(new CustomEvent('submit', { detail: { submit: true } }));
+      }
+      
       
       ready(){       
         super.ready();
@@ -112,8 +118,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           marker.longitude = latLng.lng();
           dial.open();
         });
+        this.addEventListener('submit', (e) => {
+          var newloc = {
+            latitud: marker.latitude,
+            longitud: marker.longitude,
+            accesibilidad: "media",
+          }
+
+          firebase.database().ref('locations').push().set(newloc);
+        });
+
         this.addEventListener('google-map-marker-dragend', function (e) {
           var latLng = e.detail.latLng;
+          dial.open(); 
           console.log('pin dropped', latLng.lat(), latLng.lng());
         });
         
