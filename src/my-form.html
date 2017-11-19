@@ -54,14 +54,14 @@
         <h3>¿Que tan accesible es este lugar?</h3>
         <iron-form id="form5">
         <form method="get" action="/foo" novalidate>
-          <paper-checkbox name="rampas">Cuenta con rampas</paper-checkbox><br>
-          <paper-checkbox name="ascensor">Cuenta con ascensor amplio</paper-checkbox><br>
-          <paper-checkbox name="baño">Cuenta con baño para discapacitados</paper-checkbox><br>
-          <paper-checkbox name="visibilidad">Tiene visibilidad</paper-checkbox><br>
-          <paper-checkbox name="señalización">Cuenta con señalización</paper-checkbox><br>
-          <paper-checkbox name="lineas">Existen lineas de discapacitados visuales</paper-checkbox><br>
+          <paper-checkbox id="rampas">Cuenta con rampas</paper-checkbox><br>
+          <paper-checkbox id="ascensor">Cuenta con ascensor amplio</paper-checkbox><br>
+          <paper-checkbox id="bano">Cuenta con bano para discapacitados</paper-checkbox><br>
+          <paper-checkbox id="visibilidad">Tiene visibilidad</paper-checkbox><br>
+          <paper-checkbox id="senalización">Cuenta con senalización</paper-checkbox><br>
+          <paper-checkbox id="lineas">Existen lineas de discapacitados visuales</paper-checkbox><br>
           <br>
-          <div class="button"><paper-button raised onclick="accesible()">Enviar</paper-button></div>
+          <div class="button"><paper-button raised on-click="accesible">Enviar</paper-button></div>
         </form>
       <div class="output"></div>
       </iron-form>
@@ -76,6 +76,9 @@
           checked: {
             type: Boolean,
             value: false  // initial value required for binding
+          },
+          ponderacion:{
+            type: String
           }
         }
       }
@@ -83,9 +86,9 @@
       accesible() {
         var rampas = this.$.rampas;
         var ascensor = this.$.ascensor;
-        var baño = this.$.baño;
+        var bano = this.$.bano;
         var visibilidad = this.$.visibilidad;
-        var señalizacion = this.$.señalización;
+        var senalizacion = this.$.senalización;
         var lineas = this.$.lineas;
         var clasificacion = 0;
 
@@ -93,23 +96,28 @@
           clasificacion++;
         }if(ascensor.checked){
           clasificacion++;
-        }if(baño.checked){
+        }if(bano.checked){
           clasificacion++;
         }if(visibilidad.checked){
           clasificacion++;
-        }if(señalización.checked){
+        }if(senalizacion.checked){
           clasificacion++;
         }if(lineas.checked){
           clasificacion++;
-        }if(clasificacion == 6 || clasificacion == 5){
+        }
+        if(clasificacion >= 5){
+          this.ponderacion = "alta";
           console.log("Accesible");
-        }if(clasificacion==4 || clasificacion== 3){
+        }else if(clasificacion==4 || clasificacion== 3){
+          this.ponderacion = "media";          
           console.log("Parcialmente");
-        }if(clasificacion < 3) {
+        }else if(clasificacion < 3) {
+          this.ponderacion = "baja";          
           console.log("Inaccesible");
         }else{
           console.log("No se ha clasificado");
         }
+        this.dispatchEvent(new CustomEvent('submit', { detail: { submit: true, ponderacion: this.ponderacion } }));
       }
     }
     window.customElements.define(MyForm.is, MyForm);
