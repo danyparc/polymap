@@ -26,6 +26,7 @@ Polymer serve
 
 ![Accesible](gs://polymapp.appspot.com/Accesible.png)
 Cumple con 5 o 6 puntos del siguiente listado
+
 	✓ Cuenta con rampas
 	✓ Cuenta con ascensor amplio
 	✓ Cuenta con baño para discapacitados
