@@ -66,7 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
       <template is="dom-repeat" items="{{locations}}" as="marker">
-        <google-map-marker latitude="{{marker.latitud}}" longitude="{{marker.longitud}}">
+        <google-map-marker icon="{{marker.icon}}" latitude="{{marker.latitud}}" longitude="{{marker.longitud}}">
           <p>Score: {{marker.accesibilidad}}</p>
         </google-map-marker>
       </template>
@@ -98,34 +98,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       getLocations() {
         firebase.database().ref('/locations').once('value').then((snapshot) => {
           this.locations = snapshot.val();
-          console.log("LOCS ",this.locations);
+          this.asignColors();
+          // console.log("LOCS ",this.locations);
         });
+        
       }
 
+      asignColors(){
+        for (var i in this.locations) {
+          switch (this.locations[i].accesibilidad) {
+            case "alta":
+              this.locations[i].icon = {
+                url: "../images/buena.png"
+              };            
+              break;
+            case "media":
+              this.locations[i].icon = {
+                url: "../images/media.png"
+              };
+              break;
+            case "baja":
+              this.locations[i].icon = {
+                url: "../images/baja.png"
+              };
+              break;
+            default:
+              break;
+          }
+        }
+      }
 
 
       ready() {
         super.ready();
         var marker = this.$.marker;
         var gmap = this.$.map;
-        var s = this.$.search;
+        // var s = this.$.search;
         var dial = this.$.myDialog;
 
         // s.search();
         this.getLocations();
-        console.log(gmap);
         gmap.mouseEvents = true;
-        this.addEventListener('google-map-click', (e) => {
-          var latLng = e.detail.latLng;
-          console.log('CLICK', latLng.lat(), latLng.lng());
-          marker.latitude = latLng.lat();
-          marker.longitude = latLng.lng();
-          dial.open();
-        });
-        this.addEventListener('google-map-marker-dragend', function (e) {
-          var latLng = e.detail.latLng;
-          console.log('pin dropped', latLng.lat(), latLng.lng());
-        });
+        
+        
 
       }
     }
