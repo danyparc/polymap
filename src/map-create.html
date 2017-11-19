@@ -62,9 +62,9 @@
             Show your [[count]] results for "[[query]]"
           </div> -->
     </paper-search-bar>
-    <google-map-search id="searchBox" map="[[map]]" query="[[queryp]]" results="{{results}}">
+    <google-map-search id="searchBox" map="[[map]]" query="[[queryp]]">
     </google-map-search>
-    <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
+    <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyBo5s_3oi9baiwdGCHen8WDP4NgaJ4YHH8">
       <google-map-marker icon="{{imgob}}" id="marker" drag-events="true" latitude="19.432" longitude="-99.13" draggable="true">
         <!-- <h2>Nombre lugar</h2>
         <span>dirección del lugarcillo 123</span> -->
@@ -76,7 +76,6 @@
         </google-map-marker>
       </template>
     </google-map>
-    <google-map-directions map="{{map}}" start-address="San Francisco" end-address="Mountain View" travel-mode="BICYCLING" waypoints='[{"location": "Palo Alto"}, {"location": "San Mateo"}]'></google-map-directions>
     <paper-dialog id="myDialog">
       <my-form id="myForm" ponderacion="{{ponderation}}"></my-form>
     </paper-dialog>
@@ -96,6 +95,9 @@
             type: String,
             value: "",
             observer: '_submit'
+          },
+          results:{
+            type: Array,
           }
         }
       }
@@ -123,6 +125,7 @@
 
         this.addEventListener('google-map-search-results', (e)=> {
           console.log(s.results);
+          this.results = s.results;
         })
 
         this.addEventListener('submit', (e) => {
