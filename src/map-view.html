@@ -64,13 +64,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-align: center;
       }
     </style>
-    <!-- <google-map-search id="search" map="[[map]]" query="Pizza" results="{{results}}">
-    </google-map-search> -->
     <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
-      <google-map-marker icon="{{imgob}}" id="marker" drag-events="true" latitude="19.432" longitude="-99.13" draggable="true">
-        <h2>Nombre lugar</h2>
-        <span>dirección del lugarcillo 123</span>
-      </google-map-marker>
       <template is="dom-repeat" items="{{locations}}" as="marker">
         <google-map-marker latitude="{{marker.latitud}}" longitude="{{marker.longitud}}">
           <p>Score: {{marker.accesibilidad}}</p>
@@ -94,17 +88,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
           },
           locations: {
+            type: Array,
             value: [],
+            observer: "locationsChange"
           }
         }
       }
 
       getLocations() {
         firebase.database().ref('/locations').once('value').then((snapshot) => {
-          this.locations.value = snapshot.val();
+          this.locations = snapshot.val();
           console.log("LOCS ",this.locations);
         });
       }
+
+
 
       ready() {
         super.ready();
@@ -113,7 +111,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var s = this.$.search;
         var dial = this.$.myDialog;
 
-        s.search();
+        // s.search();
         this.getLocations();
         console.log(gmap);
         gmap.mouseEvents = true;
