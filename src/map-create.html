@@ -99,6 +99,16 @@
         // });
         console.log(gmap);        
         gmap.mouseEvents=true;
+        
+        this.addEventListener('submit', (e) => {
+          var newloc = {
+            latitud: marker.latitude,
+            longitud: marker.longitude,
+            accesibilidad: e.detail.ponderacion,
+          }
+          firebase.database().ref('locations').push().set(newloc);
+        });
+
         this.addEventListener('google-map-click', (e) => {
           var latLng = e.detail.latLng;
           console.log('CLICK', latLng.lat(), latLng.lng());
