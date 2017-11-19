@@ -64,16 +64,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-align: center;
       }
     </style>
-    <!-- <google-map-search id="search" map="[[map]]" query="Pizza" results="{{results}}">
-    </google-map-search> -->
     <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
-      <google-map-marker icon="{{imgob}}" id="marker" drag-events="true" latitude="19.432" longitude="-99.13" draggable="true">
-        <h2>Nombre lugar</h2>
-        <span>dirección del lugarcillo 123</span>
-      </google-map-marker>
       <template is="dom-repeat" items="{{locations}}" as="marker">
-        <google-map-marker latitude="{{marker.latitud}}" longitude="{{marker.longitud}}">
-          <p>Score: {{marker.accesibilidad}}</p>
+        <google-map-marker icon="{{marker.icon}}" latitude="{{marker.latitud}}" longitude="{{marker.longitud}}">
+          <p>{{marker.accesibilidad}} accesibilidad</p>
         </google-map-marker>
       </template>
     </google-map>
@@ -94,40 +88,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
           },
           locations: {
+            type: Array,
             value: [],
+            observer: "locationsChange"
           }
         }
       }
 
       getLocations() {
         firebase.database().ref('/locations').once('value').then((snapshot) => {
-          this.locations.value = snapshot.val();
-          console.log("LOCS ",this.locations);
+          this.locations = snapshot.val();
+          this.asignColors();
+          // console.log("LOCS ",this.locations);
         });
+        
+        firebase.database().ref('/locations').on('child_added', (snapshot) => {
+            this.locations.push(snapshot.val())
+            this.asignColors();
+            // console.log("LOCS ",this.locations);
+          });
       }
+
+      asignColors(){
+        var locs=[];
+        for (let i in this.locations) {
+          switch (this.locations[i].accesibilidad) {
+            case "alta":
+              this.locations[i].icon = {
+                url: "../images/buena.png"
+              };            
+              break;
+            case "media":
+              this.locations[i].icon = {
+                url: "../images/media.png"
+              };
+              break;
+            case "baja":
+              this.locations[i].icon = {
+                url: "../images/baja.png"
+              };
+              break;
+            default:
+              break;
+          }
+          locs.push(this.locations[i]);
+        }
+        this.locations=locs;
+      }
+
 
       ready() {
         super.ready();
         var marker = this.$.marker;
         var gmap = this.$.map;
-        var s = this.$.search;
+        // var s = this.$.search;
         var dial = this.$.myDialog;
 
-       // s.search();
+        // s.search();
         this.getLocations();
-        console.log(gmap);
         gmap.mouseEvents = true;
-        this.addEventListener('google-map-click', (e) => {
-          var latLng = e.detail.latLng;
-          console.log('CLICK', latLng.lat(), latLng.lng());
-          marker.latitude = latLng.lat();
-          marker.longitude = latLng.lng();
-          dial.open();
-        });
-        this.addEventListener('google-map-marker-dragend', function (e) {
-          var latLng = e.detail.latLng;
-          console.log('pin dropped', latLng.lat(), latLng.lng());
-        });
+        
+        
 
       }
     }

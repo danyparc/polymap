@@ -45,8 +45,10 @@
         overflow: auto;
       }
     </style>
-    <google-map-search id="search" map="[[map]]" query="Pizza" results="{{results}}">
-    </google-map-search>
+
+    <!-- TODO: search query (paper-search-panel) -->
+    <!-- <google-map-search id="search" map="[[map]]" query="Pizza" results="{{results}}">
+    </google-map-search> -->
     <google-map map="{{map}}" id="map" click-events="true" latitude="19.432" longitude="-99.13" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
       <google-map-marker icon="{{imgob}}" id="marker" drag-events="true" latitude="19.432" longitude="-99.13" draggable="true">
         <h2>Nombre lugar</h2>
@@ -66,6 +68,11 @@
         <my-form></my-form>
       </paper-dialog>
     <!-- </paper-dialog-impl> -->
+    
+    <!-- <paper-dialog id="myDialog">
+        <h4>¿Que tan accesible es este lugar?</h4>
+        <paper-button on-click="buttonClick">Subir</paper-button>
+    </paper-dialog> -->
   </template>
   <script>
     class MapCreate extends Polymer.Element {
@@ -73,17 +80,18 @@
 
       static get properties() {
         return {
-          thingCount: {
-            value: 0,
-            observer: '_thingCountChanged'
-          },
           imgob: {
             value:{
               url: "../images/baja.png"
             }      
-          }
+          },
         }
       }
+
+      buttonClick() {
+        this.dispatchEvent(new CustomEvent('submit', { detail: { submit: true } }));
+      }
+      
       
       ready(){       
         super.ready();
@@ -91,12 +99,9 @@
         var gmap = this.$.map;
         var s = this.$.search;
         var dial = this.$.myDialog;        
-        // var scrollable = Polymer.dom(myDialog).querySelector('paper-dialog');
-        console.log(dial);
+
         // s.search();
-        // gmap.addEventListener('api-load', function (e) {
-        //   document.querySelector('google-map-directions').map = this.map;
-        // });
+
         console.log(gmap);        
         gmap.mouseEvents=true;
         
@@ -114,12 +119,20 @@
           console.log('CLICK', latLng.lat(), latLng.lng());
           dial.open();
         });
+        this.addEventListener('submit', (e) => {
+          var newloc = {
+            latitud: marker.latitude,
+            longitud: marker.longitude,
+            accesibilidad: "media",
+          }
+
+          firebase.database().ref('locations').push().set(newloc);
+        });
+
         this.addEventListener('google-map-marker-dragend', function (e) {
           var latLng = e.detail.latLng;
+          dial.open(); 
           console.log('pin dropped', latLng.lat(), latLng.lng());
-          // point.latitude = latLng.lat();
-          // point.longitude = latLng.lng();
-          // poly._buildPathFromPoints();
         });
         
       }
