@@ -24,7 +24,8 @@ Polymer serve
 
 **Ponderación**
 
-![Accesible](gs://polymapp.appspot.com/Accesible.png)
+![Accesible](https://firebasestorage.googleapis.com/v0/b/polymapp.appspot.com/o/Accesible.png?alt=media&token=fb9cf083-0956-458f-aab2-ca52fa640c82)
+
 Cumple con 5 o 6 puntos del siguiente listado
 
 	✓ Cuenta con rampas
@@ -34,7 +35,8 @@ Cumple con 5 o 6 puntos del siguiente listado
 	✓ Cuenta con señalización
 	✓ Existen lineas de discapacitados visuales
 
-![Parcialmente:](gs://polymapp.appspot.com/Parcialmente.png)
+![Parcialmente:](https://firebasestorage.googleapis.com/v0/b/polymapp.appspot.com/o/Parcialmente.png?alt=media&token=110a08a9-8e47-48b4-8fa8-9a1df7bfb939)
+
 Cumple con 3 o 4 puntos del siguiente listado
 
 	✓ Cuenta con rampas
@@ -45,6 +47,7 @@ Cumple con 3 o 4 puntos del siguiente listado
 	✓ Existen lineas de discapacitados visuales
 
 ![Inaccesible:](https://firebasestorage.googleapis.com/v0/b/polymapp.appspot.com/o/Inaccesible.png?alt=media&token=a76619af-1491-48e8-add4-7ab8047c53bb)
+
 No cumple con los puntos del siguiente listado
 
     X Cuenta con rampas
