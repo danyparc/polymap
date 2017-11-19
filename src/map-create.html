@@ -1,19 +1,10 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/google-map/google-map.html">
 <link rel="import" href="../bower_components/google-map/google-map-search.html">
 <link rel="import" href="../bower_components/google-map/google-map-marker.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="my-form.html">
 
 
 
@@ -53,11 +44,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 300px;
         overflow: auto;
       }
-      paper-dialog{
-        width: 180px;
-        height: 120px;
-        text-align: center;
-      }
     </style>
     <google-map-search id="search" map="[[map]]" query="Pizza" results="{{results}}">
     </google-map-search>
@@ -73,10 +59,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </google-map-marker>
       </template>
     </google-map>
-    
-    <paper-dialog id="myDialog">
-        <h4>¿Que tan accesible es este lugar?</h4>
-    </paper-dialog>
+
+    <!-- <paper-dialog-impl id="myDialog">
+      <h2>Header</h2> -->
+      <paper-dialog id="myDialog">
+        <my-form></my-form>
+      </paper-dialog>
+      <div class="buttons">
+        <paper-button onclick="myDialog.open()">OK</paper-button>
+      </div>
+    <!-- </paper-dialog-impl> -->
   </template>
   <script>
     class MapCreate extends Polymer.Element {
@@ -113,8 +105,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.addEventListener('google-map-click', (e) => {
           var latLng = e.detail.latLng;
           console.log('CLICK', latLng.lat(), latLng.lng());
-          marker.latitude = latLng.lat();
-          marker.longitude = latLng.lng();
           dial.open();
         });
         this.addEventListener('google-map-marker-dragend', function (e) {
