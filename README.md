@@ -44,7 +44,7 @@ Cumple con 3 o 4 puntos del siguiente listado
 	X Cuenta con señalización
 	✓ Existen lineas de discapacitados visuales
 
-![Inaccesible:](gs://polymapp.appspot.com/Inaccesible.png)
+![Inaccesible:](https://firebasestorage.googleapis.com/v0/b/polymapp.appspot.com/o/Inaccesible.png?alt=media&token=a76619af-1491-48e8-add4-7ab8047c53bb)
 No cumple con los puntos del siguiente listado
 
     X Cuenta con rampas
