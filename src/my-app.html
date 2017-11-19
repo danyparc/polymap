@@ -114,7 +114,20 @@
       </app-header-layout>
     </app-drawer-layout>
   </template>
-
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzn1t66XEAJ_WjSupB43xpl1o6f8jHhSE&libraries=places"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAzn1t66XEAJ_WjSupB43xpl1o6f8jHhSE",
+      authDomain: "polymapp.firebaseapp.com",
+      databaseURL: "https://polymapp.firebaseio.com",
+      projectId: "polymapp",
+      storageBucket: "polymapp.appspot.com",
+      messagingSenderId: "960326176818"
+    };
+    firebase.initializeApp(config);
+  </script>
   <script>
     class MyApp extends Polymer.Element {
       static get is() { return 'my-app'; }

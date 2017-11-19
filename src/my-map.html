@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="map-view.html">
 
 <dom-module id="my-map">
   <template>
@@ -22,9 +23,10 @@
       pitch   = "2">
     </k-speech>
     
-      <google-map fit-to-marker api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
+      <!-- <google-map fit-to-marker api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
         <google-map-marker latitude="37.78" longitude="-122.4" draggable="true"></google-map-marker>
-      </google-map>
+      </google-map> -->
+    <map-view></map-view>
   </template>
 
   <script>
