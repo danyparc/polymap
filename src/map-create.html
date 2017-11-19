@@ -53,6 +53,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 300px;
         overflow: auto;
       }
+      paper-dialog{
+        width: 180px;
+        height: 120px;
+        text-align: center;
+      }
     </style>
     <google-map-search id="search" map="[[map]]" query="Pizza" results="{{results}}">
     </google-map-search>
@@ -68,16 +73,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </google-map-marker>
       </template>
     </google-map>
-
-    <!-- <paper-dialog-impl id="myDialog">
-      <h2>Header</h2> -->
-      <paper-dialog id="myDialog">
-        Lorem ipsum...
-      </paper-dialog>
-      <div class="buttons">
-        <paper-button onclick="myDialog.open()">OK</paper-button>
-      </div>
-    <!-- </paper-dialog-impl> -->
+    
+    <paper-dialog id="myDialog">
+        <h4>¿Que tan accesible es este lugar?</h4>
+    </paper-dialog>
   </template>
   <script>
     class MapCreate extends Polymer.Element {
@@ -114,6 +113,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.addEventListener('google-map-click', (e) => {
           var latLng = e.detail.latLng;
           console.log('CLICK', latLng.lat(), latLng.lng());
+          marker.latitude = latLng.lat();
+          marker.longitude = latLng.lng();
           dial.open();
         });
         this.addEventListener('google-map-marker-dragend', function (e) {
