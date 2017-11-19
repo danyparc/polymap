@@ -135,11 +135,12 @@
 
         this.addEventListener('submit', (e) => {
           console.log("submiteado", e, "ponde", this.ponderation)
+          let pid = this.selectedPlaceId ? this.selectedPlaceId : "";
           var newloc = {
             latitud: marker.latitude,
             longitud: marker.longitude,
             accesibilidad: this.ponderation,
-            placeId: this.selectedPlaceId,
+            placeId: pid,
           }
           firebase.database().ref('locations').push().set(newloc);
           dial.close();
