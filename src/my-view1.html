@@ -9,7 +9,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/google-map/google-map.html">
+
 <link rel="import" href="shared-styles.html">
+
 
 <dom-module id="my-view1">
   <template>
@@ -19,21 +22,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+      google-map {
+                width: 550px;
+                height: 550px;
+            }
     </style>
 
     <div class="card">
       <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+      <h1>Sube un nuevo lugar</h1>
+      <p>Elige una ubicación en el siguiente mapa y detalla que tan accesible es</p>
     </div>
+    <google-map id="map" fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
+      <google-map-marker id="marker" drag-events="true" latitude="37.78" longitude="-122.4" draggable="true"></google-map-marker>
+    </google-map>
   </template>
 
   <script>
     class MyView1 extends Polymer.Element {
       static get is() { return 'my-view1'; }
+      ready(){       
+        super.ready();
+        var marker = this.$.marker;
+        var gmap = this.$.map;
+        // gmap.addEventListener('api-load', function (e) {
+        //   document.querySelector('google-map-directions').map = this.map;
+        // });
+        
+        this.addEventListener('google-map-marker-dragend', function (e) {
+          var latLng = e.detail.latLng;
+          console.log('pin dropped', latLng.lat(), latLng.lng());
+          point.latitude = latLng.lat();
+          point.longitude = latLng.lng();
+          poly._buildPathFromPoints();
+        });
+        
+      }
     }
-
     window.customElements.define(MyView1.is, MyView1);
   </script>
 </dom-module>
