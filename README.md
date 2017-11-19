@@ -36,6 +36,7 @@ Cumple con 5 o 6 puntos del siguiente listado
 
 ![Parcialmente:](gs://polymapp.appspot.com/Parcialmente.png)
 Cumple con 3 o 4 puntos del siguiente listado
+
 	✓ Cuenta con rampas
 	✓ Cuenta con ascensor amplio
 	✓ Cuenta con baño para discapacitados
@@ -45,6 +46,7 @@ Cumple con 3 o 4 puntos del siguiente listado
 
 ![Inaccesible:](gs://polymapp.appspot.com/Inaccesible.png)
 No cumple con los puntos del siguiente listado
+
     X Cuenta con rampas
 	X Cuenta con ascensor amplio
 	X Cuenta con baño para discapacitados
