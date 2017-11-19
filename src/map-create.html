@@ -96,6 +96,9 @@
             value: "",
             observer: '_submit'
           },
+          selectedPlaceId:{
+            type: String
+          },
           results:{
             type: Array,
           }
@@ -117,6 +120,10 @@
         gmap.mouseEvents=true;
         this.addEventListener('google-map-click', (e) => {
           var latLng = e.detail.latLng;
+          console.log("dets",e.detail);
+          if(e.detail.placeId){
+            this.selectedPlaceId = e.detail.placeId;
+          }
           console.log('CLICK', latLng.lat(), latLng.lng());
           marker.latitude = latLng.lat();
           marker.longitude = latLng.lng();
@@ -134,6 +141,7 @@
             latitud: marker.latitude,
             longitud: marker.longitude,
             accesibilidad: this.ponderation,
+            placeId: this.selectedPlaceId,
           }
           firebase.database().ref('locations').push().set(newloc);
           dial.close();
